@@ -1,6 +1,6 @@
-import numpy as np
 import pandas as pd
-from cryptorl import tickers, fetch_single, fetch_multiple, get_arrays
+from cryptorl import tickers, fetch_multiple, get_arrays
+
 
 def test_fetching_process():
     tics = tickers("USD")[20:22]
