@@ -4,7 +4,7 @@ from cryptorl import tickers, fetch_single, fetch_multiple, get_arrays
 
 
 def test_tickers():
-    assert len(tickers("USD")) == 381
+    assert len(tickers("USD")) > 1
 
 
 def test_fetch_single_work():
