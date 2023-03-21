@@ -8,3 +8,13 @@ Fetching time series data of cryptocurrencies and using ML and RL to do cryptocu
 
 ## Overview
 CryptoRL will use popular deep reinforcement learning algorithms and machine learning algorithms to do cryptocurrency trading.
+
+## Installation
+
+Run ```pip install cryptorl``` to install CryptoRL.
+
+## Usage
+
+To fetch data, please use the functions in *data.py*.
+
+With well processed data, you can use *env_crypto.py* to construct crypto market environment.
