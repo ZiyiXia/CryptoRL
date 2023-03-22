@@ -62,9 +62,17 @@ def add_indicators(df) -> pd.DataFrame:
 
 
 # split data with given start date and end date
-def split(self, df, start, end) -> pd.DataFrame:
-    # TODO
-    return df
+def split(df, start, end) -> pd.DataFrame:
+    """
+    df: a dataframe object that contains the price data
+    start: intentioned start date
+    end: intentioned end date
+    """
+    data = df[(df["date"] >= start) & (df["date"] <= end)]
+    data = data.sort_values(["date", "tic"], ignore_index=True)
+    data.index = data["date"].factorize()[0]
+
+    return data
 
 
 # get the prices of tickers in the form of 2d array
