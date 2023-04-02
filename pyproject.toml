@@ -63,7 +63,9 @@ skip-string-normalization = true
 [tool.check-manifest]
 ignore = [
     "Makefile",
-    "CONTRIBUTING.md"
+    "CONTRIBUTING.md",
+    "docs/*",
+    "docs/source/*"
 ]
 
 [tool.flake8]
