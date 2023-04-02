@@ -4,38 +4,51 @@ from Historic_Crypto import Cryptocurrencies
 from Historic_Crypto import HistoricalData
 
 
-# get valid tickers with given keyword information
 def tickers(keyword=None):
-    """
-    keyword: a string of desired keyword in the ticker id
-    """
+    """Get valid tickers with given keyword information
 
+    Args:
+        keyword (str): a string of desired keyword in the ticker id
+
+    Returns:
+        list: a list of tickers related to the keyword
+
+    """
     df = Cryptocurrencies(coin_search=keyword).find_crypto_pairs()
     tic_list = df.sort_values(by=["id"]).id.to_list()
 
     return tic_list
 
 
-# download single ticker's historical price data from Coinbase
 def fetch_single(start, end, tic, granularity=86400) -> pd.DataFrame:
-    """
-    tic: a string of a single ticker
-    """
+    """Fetch single ticker's historical data from Coinbase
 
+    Args:
+        start (str): a string of the starting date in the format of year-month-date 'xxxx-xx-xx'
+        end (str): a string of the ending date, same format to start
+        tic (str): a string of a single ticker
+
+    Returns:
+        DataFrame: a df object of the fetched data
+
+    """
     single_df = HistoricalData(tic, granularity, start, end, verbose=False).retrieve_data()
 
     return single_df
 
 
-# download multiple tickers' historical price data from Coinbase
 def fetch_multiple(start, end, tickers, granularity=86400) -> pd.DataFrame:
-    """
-    tickers: a list of the tickers
-    start: a string of start time of data
-    end: a string of end time of data
-    granularity: granularity of the data, choose between 60, 300, 900, 3600, 21600, 86400, default 86400 (1 day)
-    """
+    """Fetch multiple tickers' historical data from Coinbase
 
+    Args:
+        start (str): a string of the starting date in the format of year-month-date 'xxxx-xx-xx'
+        end (str): a string of the ending date, same format to start
+        tickers (list of str): a list of strings of tickers
+
+    Returns:
+        DataFrame: a df object of the fetched data
+
+    """
     whole = pd.DataFrame()
     fail_tics = []
 
@@ -55,18 +68,31 @@ def fetch_multiple(start, end, tickers, granularity=86400) -> pd.DataFrame:
     return whole
 
 
-# add technical indicators to the current DataFrame
 def add_indicators(df) -> pd.DataFrame:
+    """Add technical indicators to the data
+
+    Args:
+        df (DataFrame): a df object of raw data
+
+    Returns:
+        DataFrame: a df object with added indicators
+
+    """
     # TODO
     return df
 
 
-# split data with given start date and end date
 def split(df, start, end) -> pd.DataFrame:
-    """
-    df: a dataframe object that contains the price data
-    start: intentioned start date
-    end: intentioned end date
+    """Split the data by given start and end date
+
+    Args:
+        df (DataFrame): a df object of given data
+        start (str): a string of the starting date in the format of year-month-date 'xxxx-xx-xx'
+        end (str): a string of the ending date, same format to start
+
+    Returns:
+        DataFrame: a df object with expected start and end date
+
     """
     data = df[(df["date"] >= start) & (df["date"] <= end)]
     data = data.sort_values(["date", "tic"], ignore_index=True)
@@ -75,8 +101,15 @@ def split(df, start, end) -> pd.DataFrame:
     return data
 
 
-# get the prices of tickers in the form of 2d array
 def get_arrays(df):
+    """Get the prices of tickers in the form of 2d array
+
+    Args:
+        df (DataFrame): a df object of given data
+
+    Returns:
+        2D NumPy Array: a list of historical price
+    """
     data = df.copy()
     tickers = data.tic.unique()
     price_arr = []
