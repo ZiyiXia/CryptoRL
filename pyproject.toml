@@ -51,6 +51,8 @@ develop = [
     "numpy",
     "pandas",
     "gym",
+    "tensorflow",
+    "sklearn",
     "Historic-Crypto",
 ]
 
