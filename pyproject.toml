@@ -65,7 +65,8 @@ ignore = [
     "Makefile",
     "CONTRIBUTING.md",
     "docs/*",
-    "docs/source/*"
+    "docs/source/*",
+    "./readthedocs.yaml"
 ]
 
 [tool.flake8]
