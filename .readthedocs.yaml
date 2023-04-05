@@ -1,11 +1,8 @@
+sphinx:
+   configuration: docs/conf.py
+
 python:
   # Install our python package before building the docs
   install:
     - method: pip
       path: .
-    - method: pip
-      path: pandas
-    - method: pip
-      path: numpy
-    - method: pip
-      path: Historic-Crypto
