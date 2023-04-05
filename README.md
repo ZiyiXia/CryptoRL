@@ -21,9 +21,15 @@ CryptoRL will use popular deep reinforcement learning algorithms and machine lea
 
 Run ```pip install cryptorl``` to install CryptoRL.
 
-## Usage
+## Getting started
 
 To fetch data, please use the functions in *data.py*.
+
+For example:
+
+```fetch_single('2020-01-01', '2022-01-01', 'aapl')```
+
+will return a DataFrame object that containing the cleaned data with required ticker and range of dates.
 
 With well processed data, you can use *env_crypto.py* to construct crypto market environment.
 
