@@ -1,12 +1,17 @@
 # CryptoRL
 Fetching time series data of cryptocurrencies and using ML and RL to do cryptocurrency trading.
 
-<img src="https://img.shields.io/github/license/ZiyiXia/CryptoRL" alt="CryptoRL MIT License"/>
-<img src="https://img.shields.io/pypi/v/CryptoRL" alt="pypi version">
-<img src="https://img.shields.io/github/issues/ZiyiXia/CryptoRL" alt="Issue"/>
-<img src="https://img.shields.io/github/actions/workflow/status/ZiyiXia/CryptoRL/build.yml?label=build%20status&logo=github" alt="built status">
-<img src="https://img.shields.io/codecov/c/github/ZiyiXia/CryptoRL?logo=codecov" alt="codecov">
-<img src="https://img.shields.io/readthedocs/cryptorl" alt="readthedocs">
+[![License: MIT](https://img.shields.io/github/license/ZiyiXia/CryptoRL)](https://opensource.org/licenses/MIT)
+
+[![https://img.shields.io/pypi/v/CryptoRL]](https://github.com/ZiyiXia/CryptoRL/issues)
+
+[![https://img.shields.io/pypi/v/CryptoRL]](https://pypi.org/project/CryptoRL/)
+
+![](https://img.shields.io/github/actions/workflow/status/ZiyiXia/CryptoRL/build.yml?label=build%20status&logo=github)
+
+[![https://img.shields.io/codecov/c/github/ZiyiXia/CryptoRL?logo=codecov]]([https://pypi.org/project/CryptoRL/](https://app.codecov.io/gh/ZiyiXia/CryptoRL))
+
+[![https://img.shields.io/readthedocs/cryptorl]](https://cryptorl.readthedocs.io)
 
 
 ## Overview
