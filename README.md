@@ -21,3 +21,5 @@ Run ```pip install cryptorl``` to install CryptoRL.
 To fetch data, please use the functions in *data.py*.
 
 With well processed data, you can use *env_crypto.py* to construct crypto market environment.
+
+Read the [documentation](https://cryptorl.readthedocs.io) for more details.
