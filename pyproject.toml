@@ -53,7 +53,7 @@ develop = [
     "gym",
     "tensorflow",
     "sklearn",
-    "yfinance"
+    "yfinance",
     "ta",
     "Historic-Crypto",
 ]
