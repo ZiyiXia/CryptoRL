@@ -10,8 +10,8 @@ from .data import prep_training_data
 
 
 def dt_pruning(processed_df):
-    if len(processed_df) == 0:
-        return processed_df
+    if len(processed_df) <= 1:
+        return []
     all_rmse = []
     X, y = prep_training_data(processed_df, 10)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -41,15 +41,6 @@ def dt_pruning(processed_df):
 def dt_feature_importance(best_model, feature_names):
     feat_imps = zip(feature_names, best_model.feature_importances_)
     feat, imps = zip(*(sorted(list(filter(lambda x: x[1] != 0, feat_imps)), key=lambda x: x[1])))
-
-    # Get feature importance graph
-    plt.figure(figsize=(3, 5))
-    plt.barh(feat, imps)
-    plt.xlabel("Feature Importance")
-    plt.ylabel("Features")
-    plt.title("Feature Importance of Decision Tree")
-    plt.yticks(fontsize=7)
-    plt.show()
 
     processed_comb = set()
     for feature in feat:

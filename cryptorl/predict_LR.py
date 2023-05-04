@@ -8,9 +8,9 @@ from .utils import get_feature_combinations
 from .data import prep_training_data
 
 
-def test_all_lr(processed_df, additional_factors):
-    if len(processed_df) == 0:
-        return processed_df
+def all_lr(processed_df, additional_factors):
+    if len(processed_df) <= 1:
+        return []
     all_rmse = []
     all_combinations = get_feature_combinations(additional_factors)
 

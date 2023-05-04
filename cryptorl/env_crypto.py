@@ -23,6 +23,5 @@ class CryptoEnv(gym.Env):
 
         Args:
             action (list): an action of buy, hold, or sell
-
         """
         pass

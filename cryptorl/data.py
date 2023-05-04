@@ -88,7 +88,7 @@ def add_indicators(df) -> pd.DataFrame:
     processed_df["RSI"] = ta_rsi.rsi()
     processed_df["ROC"] = ta_roc.roc()
     processed_df["OBV"] = ta_obv.on_balance_volume()
-    processed_df = processed_df.rename({'Adj Close': 'Price', 0: 'RSI', 1: 'ROC', 2: 'OBV'}, axis=1)
+    processed_df = processed_df.rename({'Adj Close': 'Price'}, axis=1)
     return processed_df
 
 

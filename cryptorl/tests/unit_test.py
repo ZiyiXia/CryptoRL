@@ -4,7 +4,7 @@ import yfinance as yf
 from cryptorl import tickers, fetch_single, fetch_multiple, get_arrays
 from cryptorl import add_indicators, prep_training_data
 from cryptorl import get_feature_combinations, cal_avg_rank
-from cryptorl import test_all_lr, dt_pruning, dt_feature_importance, test_all_nn
+from cryptorl import all_lr, dt_pruning, dt_feature_importance, all_nn
 
 
 def test_tickers():
@@ -43,10 +43,10 @@ def test_add_indicators():
 
 def test_prep_training_data():
     comb = ['Price']
-    start = '2023-02-01'
+    start = '2021-02-01'
     end = '2023-03-01'
-    raw_aapl = yf.download('aapl', start, end)
-    processed = add_indicators(raw_aapl)
+    df = yf.download('aapl', start, end)
+    processed = add_indicators(df)
     cur_df = processed[comb]
     X, y = prep_training_data(cur_df, 10)
     assert len(X.iloc[0]) == 10 and len(y.iloc[0]) == 1, "prepare training data failed"
@@ -76,18 +76,24 @@ def test_cal_avg_rank():
     assert res[0][0] == 'a', "cal_avg_rank failed"
 
 
-def test_test_all_lr():
+def test_all_lr():
     additional_factors = ['Volume', 'RSI', 'ROC', 'OBV']
-    df = pd.DataFrame()
-    res = test_all_lr(df, additional_factors)
-    assert len(res) == 0, "linear regression failed"
+    start = '2021-02-01'
+    end = '2023-03-02'
+    df = yf.download('aapl', start, end)
+    processed_df = add_indicators(df)
+    res = all_lr(processed_df, additional_factors)
+    assert len(res) == 16, "linear regression failed"
 
 
-def test_test_all_nn():
+def test_all_nn():
     additional_factors = ['Volume', 'RSI', 'ROC', 'OBV']
-    df = pd.DataFrame()
-    res = test_all_nn(df, additional_factors)
-    assert len(res) == 0, "neural network failed"
+    start = '2021-02-01'
+    end = '2023-03-02'
+    df = yf.download('aapl', start, end)
+    processed_df = add_indicators(df)
+    res = all_nn(processed_df, additional_factors)
+    assert len(res) == 16, "neural network failed"
 
 
 def test_dt_pruning():
