@@ -10,8 +10,15 @@ from .data import prep_training_data
 
 
 def dt_pruning(processed_df):
-    if len(processed_df) <= 1:
-        return []
+    """Use decision tree with given processed dataframe object to choose the best tree depth
+
+    Args:
+        processed_df (DataFrame): a DataFrame object with well processed data
+
+    Returns:
+        DecisionTreeRegressor: a sklearn tree object with the best depth
+
+    """
     all_rmse = []
     X, y = prep_training_data(processed_df, 10)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -39,8 +46,18 @@ def dt_pruning(processed_df):
 
 
 def dt_feature_importance(best_model, feature_names):
+    """Use the give decision tree model to test all feature combinations
+
+    Args:
+        best_model (DecisionTreeRegressor): a DecisionTreeRegressor object
+        feature_names (list): a list with feature combinations
+
+    Returns:
+        list: a list of of prediction results
+
+    """
     feat_imps = zip(feature_names, best_model.feature_importances_)
-    feat, imps = zip(*(sorted(list(filter(lambda x: x[1] != 0, feat_imps)), key=lambda x: x[1])))
+    feat, _ = zip(*(sorted(list(filter(lambda x: x[1] != 0, feat_imps)), key=lambda x: x[1])))
 
     processed_comb = set()
     for feature in feat:

@@ -7,8 +7,16 @@ from .data import prep_training_data
 
 
 def all_nn(processed_df, additional_factors):
-    if len(processed_df) <= 1:
-        return []
+    """Use neural network with given processed dataframe object and additional factors to predict
+
+    Args:
+        processed_df (DataFrame): a DataFrame object with well processed data
+        additional_factors (list): a list of feature combination that we want to use
+
+    Returns:
+        list: a list of prediction results
+
+    """
     all_rmse = []
     all_combinations = get_feature_combinations(additional_factors)
 
