@@ -2,8 +2,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 import tensorflow as tf
 
-from utils import get_feature_combinations
-from data import prep_training_data
+from .utils import get_feature_combinations
+from .data import prep_training_data
 
 
 def test_all_nn(processed_df, additional_factors):

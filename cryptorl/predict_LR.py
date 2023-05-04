@@ -4,8 +4,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error
 
-from utils import get_feature_combinations
-from data import prep_training_data
+from .utils import get_feature_combinations
+from .data import prep_training_data
 
 
 def test_all_lr(processed_df, additional_factors):

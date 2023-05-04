@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.tree import DecisionTreeRegressor
 from sklearn import tree
 
-from data import prep_training_data
+from .data import prep_training_data
 
 
 def dt_pruning(processed_df):
