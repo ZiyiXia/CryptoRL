@@ -19,6 +19,8 @@ def dt_pruning(processed_df):
         DecisionTreeRegressor: a sklearn tree object with the best depth
 
     """
+    if len(processed_df) <= 1:
+        return []
     all_rmse = []
     X, y = prep_training_data(processed_df, 10)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -57,7 +59,7 @@ def dt_feature_importance(best_model, feature_names):
 
     """
     feat_imps = zip(feature_names, best_model.feature_importances_)
-    feat, _ = zip(*(sorted(list(filter(lambda x: x[1] != 0, feat_imps)), key=lambda x: x[1])))
+    feat, imps = zip(*(sorted(list(filter(lambda x: x[1] != 0, feat_imps)), key=lambda x: x[1])))
 
     processed_comb = set()
     for feature in feat:
