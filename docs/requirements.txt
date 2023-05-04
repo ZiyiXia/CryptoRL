@@ -1,4 +1,5 @@
 numpy
 pandas
 gym
+ta-lib
 Historic-Crypto
