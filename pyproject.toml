@@ -53,6 +53,7 @@ develop = [
     "gym",
     "tensorflow",
     "sklearn",
+    "ta",
     "Historic-Crypto",
 ]
 
