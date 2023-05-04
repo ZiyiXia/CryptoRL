@@ -52,7 +52,7 @@ develop = [
     "pandas",
     "gym",
     "tensorflow",
-    "sklearn",
+    "scikit-learn",
     "yfinance",
     "ta",
     "Historic-Crypto",
