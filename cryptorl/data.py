@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import talib
+import ta
 from Historic_Crypto import Cryptocurrencies
 from Historic_Crypto import HistoricalData
 
@@ -69,7 +69,7 @@ def fetch_multiple(start, end, tickers, granularity=86400) -> pd.DataFrame:
     return whole
 
 
-def add_indicators(raw) -> pd.DataFrame:
+def add_indicators(df) -> pd.DataFrame:
     """Add technical indicators to the data (now supporting RSI, ROC, OBV)
 
     Args:
@@ -79,12 +79,15 @@ def add_indicators(raw) -> pd.DataFrame:
         DataFrame: a df object with added indicators
 
     """
-    price_df = raw['Adj Close']
-    volume_df = raw['Volume']
-    rsi = talib.RSI(price_df)
-    roc = talib.ROC(price_df)
-    obv = talib.OBV(price_df, volume_df)
-    processed_df = pd.concat([price_df, volume_df, rsi, roc, obv], axis=1)
+    ta_rsi = ta.momentum.RSIIndicator(close=df["Adj Close"])
+    ta_roc = ta.momentum.ROCIndicator(close=df["Adj Close"])
+    ta_obv = ta.volume.OnBalanceVolumeIndicator(close=df["Adj Close"], volume=df["Volume"])
+    price_df = df['Adj Close']
+    volume_df = df['Volume']
+    processed_df = pd.concat([price_df, volume_df], axis=1)
+    processed_df["RSI"] = ta_rsi.rsi()
+    processed_df["ROC"] = ta_roc.roc()
+    processed_df["OBV"] = ta_obv.on_balance_volume()
     processed_df = processed_df.rename({'Adj Close': 'Price', 0: 'RSI', 1: 'ROC', 2: 'OBV'}, axis=1)
     return processed_df
 
