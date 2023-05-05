@@ -43,5 +43,6 @@ Autodocs
 .. toctree::
    :maxdepth: 2
 
+   source/example
    source/cryptorl
    source/modules

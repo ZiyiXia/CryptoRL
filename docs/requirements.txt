@@ -1,0 +1,8 @@
+numpy
+pandas
+matplotlib
+gym
+ta
+Historic-Crypto
+scikit-learn
+tensorflow

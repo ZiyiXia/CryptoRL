@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import ta
 from Historic_Crypto import Cryptocurrencies
 from Historic_Crypto import HistoricalData
 
@@ -69,7 +70,7 @@ def fetch_multiple(start, end, tickers, granularity=86400) -> pd.DataFrame:
 
 
 def add_indicators(df) -> pd.DataFrame:
-    """Add technical indicators to the data
+    """Add technical indicators to the data (now supporting RSI, ROC, OBV)
 
     Args:
         df (DataFrame): a df object of raw data
@@ -78,8 +79,55 @@ def add_indicators(df) -> pd.DataFrame:
         DataFrame: a df object with added indicators
 
     """
-    # TODO
-    return df
+    ta_rsi = ta.momentum.RSIIndicator(close=df["Adj Close"])
+    ta_roc = ta.momentum.ROCIndicator(close=df["Adj Close"])
+    ta_obv = ta.volume.OnBalanceVolumeIndicator(close=df["Adj Close"], volume=df["Volume"])
+    price_df = df['Adj Close']
+    volume_df = df['Volume']
+    processed_df = pd.concat([price_df, volume_df], axis=1)
+    processed_df["RSI"] = ta_rsi.rsi()
+    processed_df["ROC"] = ta_roc.roc()
+    processed_df["OBV"] = ta_obv.on_balance_volume()
+    processed_df = processed_df.rename({'Adj Close': 'Price'}, axis=1)
+    return processed_df
+
+
+def prep_training_data(df, time_range):
+    """Prepare the data for stock prediction
+
+    Args:
+        df (DataFrame): a df object of raw data
+        time_range: number of dates use as model input
+
+    Returns:
+        DataFrame: a df object for model input
+        DataFrame: a df object of label
+
+    """
+    time_range += 1
+    original_columns = df.columns.values.tolist()
+    new_columns = []
+    label_name = "Price" + str(time_range)
+    for day in range(1, time_range):
+        for name in original_columns:
+            new_columns.append(name + str(day))
+    new_columns.append(label_name)
+
+    new_data = []
+    for i in range(len(df) - time_range - 1):
+        new_row = []
+        for day in range(1, time_range):
+            for name in original_columns:
+                new_row.append(df.iloc[i + day][name])
+
+        new_row.append(df.iloc[i + time_range]["Price"])
+        new_data.append(new_row)
+    new_df = pd.DataFrame(new_data, columns=[new_columns])
+    new_df = new_df.dropna()
+
+    y = new_df[label_name]
+    X = new_df.sort_index(axis=1).drop(columns=[label_name])
+    return X, y
 
 
 def split(df, start, end) -> pd.DataFrame:
